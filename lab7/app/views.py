@@ -9,7 +9,7 @@ from django.http import HttpResponse
 @require_http_methods(['POST'])
 def set(request, key):
     key=key[:256]
-    # print(key)
+    print("set key: "+key)
     data_filter=Data.objects.filter(key=key)
     if data_filter.exists():
         data_object=data_filter[0]
@@ -18,7 +18,7 @@ def set(request, key):
     # print(request.POST)
     try:
         data_object.data=request.POST['value'][:256]
-
+        print('set value: '+data_object.data)
     except:
         return HttpResponse('no value', status=403)
     data_object.save()
@@ -34,11 +34,13 @@ def set(request, key):
 @require_http_methods(['GET'])
 def get(request, key):
     key=key[:256]
+    print('get key: '+key)
     data_filter = Data.objects.filter(key=key)
-    print(key)
+
     print(data_filter)
     if data_filter.exists():
         data_object = data_filter[0]
     else:
         return HttpResponse('key not found!')
+    print('get value: '+data_object.data)
     return HttpResponse(data_object.data)
