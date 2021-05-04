@@ -19,6 +19,6 @@ from app.views import set, get
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('set/<slug:key>', set, name='set'),
-    path('get/<slug:key>', get, name='get'),
+    path('set/<str:key>', set, name='set'),
+    path('get/<str:key>', get, name='get'),
 ]

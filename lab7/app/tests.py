@@ -41,5 +41,9 @@ class OverallTestCase(TestCase):
         print(response.content)
         self.assertEqual(str(response.content.decode('utf8')), 'key not found!')
 
-
-
+    def test_for_utf_value(self):
+        key='我是中文來坑人'
+        value='哈哈哈哈哈哈哈'
+        response = self.c.post('/set/'+key, {'value': value})
+        response = self.c.get('/get/'+key)
+        self.assertEqual(str(response.content.decode('utf8')), value)
