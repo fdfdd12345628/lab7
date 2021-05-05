@@ -28,7 +28,7 @@ class OverallTestCase(TestCase):
         self.assertEqual(str(response.content.decode('utf8')), long_value[:256])
 
         response = self.c.post('/set/'+long_key, {'value': long_value})
-        response = self.c.get('/get/'+long_key[:255])
+        response = self.c.get('/get/'+long_key[:256])
         self.assertEqual(str(response.content.decode('utf8')), long_value[:256])
 
     def test_for_empty_value(self):
@@ -54,3 +54,4 @@ class OverallTestCase(TestCase):
         response = self.c.post('/set/'+key, {'value': value})
         response = self.c.get('/get/'+key)
         self.assertEqual(str(response.content.decode('utf8')), value)
+        # %0A%E0%B9%84%E0%B8%95%E0%B9%89%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B8%99%20%5Cn%5Cn%20%5Ct%5Ct%0A%0Ai%5C%2F%3C%3E%3F%2C.%2F%3A%27%22%3B%40%23%24%25%5E%26%29%28%2B-%60~%7C%D0%A2%D0%B0%D0%B9%D0%B2%D0%B0%D0%BD%D1%8C
